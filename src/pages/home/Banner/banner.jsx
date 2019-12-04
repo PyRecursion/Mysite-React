@@ -20,6 +20,6 @@ export default class Banner extends Component {
                 </div>
             </Carousel>
 
-        )
+        ) 
     }
 }

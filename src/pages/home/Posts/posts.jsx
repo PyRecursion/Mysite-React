@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Card } from 'antd';
 import Content from './content';
+import Publish from './publish/publish';
 
 const tabList = [
   {
@@ -9,13 +10,13 @@ const tabList = [
   },
   {
     key: 'tab2',
-    tab: '热门',
+    tab: '发表',
   },
 ];
 
 const contentList = {
-  tab1: <Content></Content>,
-  tab2:<div></div>,
+  tab1: <Content />,
+  tab2: <Publish />,
 };
 
 
@@ -36,7 +37,7 @@ export default class Posts extends Component {
       <div>
       <Card
         style={{ width: '100%' }}
-        title="Card title"
+        title="帖子"
         extra='More'
         tabList={tabList}
         activeTabKey={this.state.key}

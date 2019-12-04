@@ -1,18 +1,38 @@
 import React, { Component } from 'react'
-import {Form,Input,Select,Button} from 'antd';
+import { Form, Input, Button,message } from 'antd';
+import {Link,Redirect} from 'react-router-dom'
+import { reqRes} from '../../api';
+import storage from '../../utils/storageUtils.js'
 
-const { Option } = Select;
+import { connect } from 'react-redux'
+import {regUser} from '../../redux/actions'
 
 class Reg extends Component {
     state = {
         confirmDirty: false,
         autoCompleteResult: [],
+        user:""
     };
+
     handleSubmit = e => {
-        e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
+        e.preventDefault();//阻止系统默认行为
+        this.props.form.validateFieldsAndScroll(async(err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                console.log(values)
+                const {loginname,email,password,nickname}=values
+                const result=await reqRes(loginname,email,password,nickname)
+                console.log(result)
+                if (result.status===0) {
+                    message.success("注册成功")
+                    console.log(result.data)
+                    storage.saveUser(result.data)
+                    this.props.regUser()
+                    this.setState({
+                        user:result.data.nickname
+                    })
+                }else{
+                    message.error(result.msg)
+                }
             }
         });
     };
@@ -24,12 +44,11 @@ class Reg extends Component {
     compareToFirstPassword = (rule, value, callback) => {
         const { form } = this.props;
         if (value && value !== form.getFieldValue('password')) {
-            callback('Two passwords that you enter is inconsistent!');
+            callback('两次输入密码不一致');
         } else {
             callback();
         }
     };
-
     validateToNextPassword = (rule, value, callback) => {
         const { form } = this.props;
         if (value && this.state.confirmDirty) {
@@ -45,7 +64,7 @@ class Reg extends Component {
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
-                sm: { span: 8 },
+                sm: { span: 8},
             },
             wrapperCol: {
                 xs: { span: 24 },
@@ -64,20 +83,23 @@ class Reg extends Component {
                 },
             },
         };
-        const prefixSelector = getFieldDecorator('prefix', {
-            initialValue: '86',
-        })(
-            <Select style={{ width: 70 }}>
-                <Option value="86">+86</Option>
-                <Option value="87">+87</Option>
-            </Select>,
-        );
+        if (this.state.user) {
+           return <Redirect to='/' />
+        }
 
-        
-
-        return (
+        return (   
             <div className='login'>
-                <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+                <Form {...formItemLayout} onSubmit={this.handleSubmit} style={{'width':'400px'}} >
+                    <Form.Item label="用户名" >
+                        {getFieldDecorator('loginname', {
+                            rules: [
+                                { required: true, message: '请输入你的用户名' },
+                                { min:6, message: '用户名需要大于6位' },
+                                { pattern: /^[a-zA-Z0-9_]+$/, message: '用户名必须由字母数字下划线组成' }
+                            ],
+                        })(<Input />)}
+                    </Form.Item>
+
                     <Form.Item label="邮箱地址">
                         {getFieldDecorator('email', {
                             rules: [
@@ -97,8 +119,9 @@ class Reg extends Component {
                             rules: [
                                 {
                                     required: true,
-                                    message: 'Please input your password!',
+                                    message: '请输入密码!',
                                 },
+                                { min:6, message: '密码需要大于6位' },
                                 {
                                     validator: this.validateToNextPassword,
                                 },
@@ -110,7 +133,7 @@ class Reg extends Component {
                             rules: [
                                 {
                                     required: true,
-                                    message: 'Please confirm your password!',
+                                    message: '不能为空!',
                                 },
                                 {
                                     validator: this.compareToFirstPassword,
@@ -120,20 +143,16 @@ class Reg extends Component {
                     </Form.Item>
                     <Form.Item label='昵称'>
                         {getFieldDecorator('nickname', {
-                            rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                            rules: [{ required: true, message: '昵称不能为空', whitespace: true }],
                         })(<Input />)}
                     </Form.Item>
-                    
-                    <Form.Item label="Phone Number">
-                        {getFieldDecorator('phone', {
-                            rules: [{ required: true, message: 'Please input your phone number!' }],
-                        })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
-                    </Form.Item>
-                    
+
+
                     <Form.Item {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">
                             注册账号
                         </Button>
+                        <Link to='login' style={{'marginLeft':'30px'}}> 返回登录</Link >
                     </Form.Item>
                 </Form>
             </div>
@@ -141,4 +160,7 @@ class Reg extends Component {
     }
 }
 
-export default Reg = Form.create({ name: 'register' })(Reg);
+export default connect(
+    state => ({ user: state.user }),
+  {regUser}
+)(Form.create({ name: 'register' })(Reg))

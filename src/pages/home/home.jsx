@@ -11,9 +11,8 @@ import Bulletin from './bulletin-board/bulletin';
 export default class Home extends Component {
     state = {
         top: 10,
-
       };
-    
+      
     render() {
         return (
             <div className='show'>
