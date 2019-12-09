@@ -9,6 +9,7 @@ import Login_reg from './pages/login_reg'
 import Index from './pages/home'
 
 
+
 export default class App extends Component {
     render() {
         return (

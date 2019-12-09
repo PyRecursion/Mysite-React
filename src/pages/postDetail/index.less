@@ -1,60 +1,128 @@
 .container {
-  position: relative;
-  .container-left {
-    width: 1000px;
-    .container-postDetail {
-      padding: 0px;
+  display: flex;
+}
+
+.title {
+  width: 1000px;
+  height: 50px;
+  font-size: 20px;
+  padding-left: 200px;
+  background: #eaf5fc;
+  line-height: 50px;
+}
+.content-total {
+  display: flex;
+  .content-left {
+    width: 200px;
+    background: #fbfbfd;
+    .avatar-nickname {
+      height: 100%;
+      text-align: center;
+      padding-top: 30px;
       border-bottom: #e1e4e6 solid 1px;
-      border-right: #e1e4e6 solid 1px;
-      background: "#fff";
-      .container-postDetail-right {
-        padding: 24px;
-        min-height: 200;
-        background-color: white;
-        .title {
-          position: relative;
-          left: -24px;
-          border-bottom: rgb(221, 215, 215) solid 1px;
-          margin: 0px 0px 20px 0px;
-          padding: 0px 0px 20px 10px;
-          height: 50px;
-          line-height: 50px;
-          font-size: 25px;
-          background-color: white;
-          width: 800px;
-        }
-        .usercontent {
-          img {
-            margin: 5px;
-          }
-        }
-        .foot {
-          text-align: right;
-        }
-      }
-      .avatar {
-        margin-top: 15px;
-        text-align: center;
-      }
-      .nickname {
-        margin-top: 15px;
-        text-align: center;
+      p {
+        margin-top: 10px;
       }
     }
   }
-  .TextEditor {
-    .pagination {
-      margin: 20px 0px 0px 30px;
+  .content-right-spc{
+    width: 800px;
+    background: white;
+    padding: 20px 20px 0px 20px;
+    border-bottom: #e1e4e6 solid 1px;
+    .content-detail{
+      min-height: 400px;
     }
-    .texteditor {
-      width: 700px;
-      margin: 5px 5px 5px 20px;
+    .content-right-foot-spc{
+      text-align: right;
     }
   }
-  .container-right {
-    position: absolute;
-    left: 1000px;
-    top: 0px;
-    width: 280px;
+ 
+  .content-right {
+    width: 800px;
+    background: white;
+
+    padding: 20px 20px 0px 20px;
+    border-bottom: #e1e4e6 solid 1px;
+    .content-detail{
+      min-height: 80px;
+    }
+    .content-right-foot {
+      position: relative;
+      text-align: right;
+      .replyButton {
+        .info {
+          position: absolute;
+          left: 65%;
+          top:13px
+        }
+      }
+    }
   }
+}
+
+.page {
+  width: 1000px;
+  text-align: right;
+  padding: 20px 30px 0px 0px;
+  background: white;
+}
+
+.editor-total {
+  width: 1000px;
+  padding: 7px;
+  background: white;
+  .editor {
+    // padding: 10px;
+    background: white;
+    border: pink 1px solid;
+  }
+}
+.side-total {
+  width: 280px;
+  background: rgb(243, 243, 243);
+}
+
+.PBreply-Button {
+  margin-top: 20px;
+  margin-left: 500px;
+}
+
+.showPBreply0 {
+  display: none;
+}
+.showPBreply1 {
+  display: block;
+}
+
+//replys.jsx
+// .reply-button-none{
+//   display:none;
+// }
+// .reply-button-show{
+//   width: 500px;
+
+//   display:block;
+// }
+
+//回复样式
+// .ant-collapse > .ant-collapse-item{
+//   background: white;
+// }
+.ant-collapse-header {
+  margin-left: 650px;
+  border: 0px;
+}
+.ant-collapse-content-box {
+  margin-left: 100px;
+  background:#fbfbfd;
+  .ant-comment > .ant-comment-inner {
+    padding: 0px;
+  }
+}
+.ant-collapse-borderless > .ant-collapse-item {
+  border: white;
+}
+.ant-comment-actions {
+  margin: 0px 0px 0px 0px;
 }

@@ -3,6 +3,7 @@ import { Card } from 'antd';
 import Content from './content';
 import Publish from './publish/publish';
 
+
 const tabList = [
   {
     key: 'tab1',
@@ -14,18 +15,23 @@ const tabList = [
   },
 ];
 
-const contentList = {
-  tab1: <Content />,
-  tab2: <Publish />,
-};
+
 
 
 export default class Posts extends Component {
-
+  
   state = {
     key: 'tab1',
     noTitleKey: 'app',
   };
+
+  backtab1=()=>{
+    this.setState({
+      key:"tab1"
+    })
+  }
+
+  
 
   onTabChange = (key, type) => {
     console.log(key, type);
@@ -33,6 +39,10 @@ export default class Posts extends Component {
   };
 
   render() {
+    const contentList = {
+      tab1: <Content />,
+      tab2: <Publish backtab1={this.backtab1} />,
+    };
     return (
       <div>
       <Card

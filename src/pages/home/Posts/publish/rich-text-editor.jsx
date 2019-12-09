@@ -2,10 +2,10 @@
 富文本编辑器组件
  */
 
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import E from "wangeditor";
 
-class RichTextEditor extends PureComponent {
+class RichTextEditor extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -88,7 +88,7 @@ class RichTextEditor extends PureComponent {
     geteditorContent=()=>this.state.editorContent
     // geteditorText=()=>this.state.editorText
     render() {
-        console.log('富文本编辑器的html内容',this.state.editorContent)
+        // console.log('富文本编辑器的html内容',this.state.editorContent)
         return (
             <div>
                 {/* 将生成编辑器 */}

@@ -1,4 +1,4 @@
-// import jsonp from 'jsonp'
+
 
 import ajax from './ajax'
 
@@ -22,3 +22,18 @@ export const reqTopic= (page,pageNum) =>ajax(BASE + '/reqtopic',{page,pageNum})
 
 //获取帖子详情
 export const reqPostDetail= (id) =>ajax(BASE + '/reqpostdetail',{id})
+
+//获取头像
+export const reqHead= (id) =>ajax(BASE + '/reqhead',{id})
+
+//写评论
+export const upComment =(user_id,topic_id,comment) =>ajax(BASE + '/upComment',{user_id,topic_id,comment},'POST')
+
+//发表回复
+export const pbReply =(from_uid,to_uid,comment_id,reply_content) =>
+                        ajax(BASE + '/pbReply',{from_uid,to_uid,comment_id,reply_content},'POST')
+
+//获取新闻
+export const reqNews =() =>ajax(BASE + '/reqNews')
+
+

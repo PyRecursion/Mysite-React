@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { Upload, Icon, message } from 'antd';
+
+
 import { connect } from 'react-redux'
+import {reqHeadphoto} from '../../redux/actions'
+
 
 
 function getBase64(img, callback) {
@@ -22,10 +26,15 @@ function beforeUpload(file) {
 }
 
 class Headphoto extends Component {
-    state = {
-        loading: false,
-    };
-
+    constructor (props) {
+        super(props)
+        // 创建用来保存ref标识的标签对象的容器
+        this.state = {
+            loading: false,
+        };
+      }
+    
+    
     handleChange = info => {
         if (info.file.status === 'uploading') {
             this.setState({ loading: true });
@@ -38,9 +47,15 @@ class Headphoto extends Component {
                     imageUrl,
                     loading: false,
                 }),
+                
             );
+            this.props.reqHeadphoto(this.props.user.id)
+            
         }
     };
+    
+    getheadphoto=()=>this.state.imageUrl//转给父组件图像
+   
 
     render() {
         const uploadButton = (
@@ -50,8 +65,10 @@ class Headphoto extends Component {
             </div>
         );
         const { imageUrl } = this.state;
-        const data={'id':this.props.user.id}
-        console.log(imageUrl)
+        console.log(this.props.id)
+        const data={'id':this.props.id}
+        
+        
         return (
             <Upload
                 name="avatar"
@@ -64,12 +81,13 @@ class Headphoto extends Component {
                 onChange={this.handleChange}
             >
                 {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                
             </Upload>
         );
     }
 }
 
-
 export default connect(
     state => ({ user: state.user }),
-  )(Headphoto)
+    {reqHeadphoto}
+)(Headphoto) 

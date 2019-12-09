@@ -10,9 +10,11 @@ import {
     RESET_USER,
     REG_USER
   } from './action-types'
-import {reqLog} from '../api'
+import {reqLog,reqHead} from '../api'
 import storageUtils from "../utils/storageUtils";
 import { message } from 'antd';
+
+
 
 /*
 接收用户的同步action
@@ -29,6 +31,8 @@ export const showErrorMsg = (errorMsg) => ({type: SHOW_ERROR_MSG, errorMsg})
 注册改变props
  */
 export const regUser = () => ({type: REG_USER})
+
+
 
 /*
 退出登陆的同步action
@@ -59,7 +63,29 @@ export const login = (username, password) => {
       message.error(msg)
       dispatch(showErrorMsg(msg))
     }
-
   }
 }
+
+/*
+请求头像的action
+ */
+export const reqHeadphoto = (id) => {
+  return async dispatch => {
+    // 1. 执行异步ajax请求
+    const result = await reqHead(id)  // {status: 0, data: user} {status: 1, msg: 'xxx'}
+    // 2.1. 如果成功, 分发成功的同步action
+    if(result.status===0) {
+      const user = result.data
+      // 保存local中
+      storageUtils.saveUser(user)
+      // 分发接收用户的同步action
+      dispatch(receiveUser(user))
+    } else { // 2.2. 如果失败, 分发失败的同步action
+      const msg = result.msg
+      message.error(msg)
+      dispatch(showErrorMsg(msg))
+    }
+  }
+}
+
 

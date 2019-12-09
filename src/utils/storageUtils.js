@@ -12,7 +12,11 @@ export default {
     // localStorage.setItem(USER_KEY, JSON.stringify(user))
     store.set(USER_KEY, user)
   },
-
+  
+//修改头像
+updateUser(head_link){
+  store.set(USER_KEY,{head_link:head_link})
+},
   /* 
   返回一个user对象, 如果没有返回一个{}
   */

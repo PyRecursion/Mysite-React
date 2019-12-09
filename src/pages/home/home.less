@@ -1,25 +1,63 @@
 .show {
   .row1 {
+    height: 395px;
     margin: 5px 0px;
     .row1-top {
+      position: relative;
       padding-left: 5px;
-      height: 160px;
+      height: 198px;
       img {
         height: 100%;
         width: 100%;
       }
+      .img-title {
+        position: absolute;
+        bottom: 10px;
+        color: white;
+        font-size: 16px;
+        left: 30px;
+      }
     }
-      .row1-button {
-        padding-left: 5px;
-        padding-top:5px ;
-        height: 160px;
-        img {
-          height: 100%;
-          width: 100%;
+    .row1-botton {
+      padding-left: 5px;
+      padding-top: 5px;
+      height: 197px;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+      .img-title {
+        position: absolute;
+        bottom: 10px;
+        left: 30px;
+        color: white;
+        font-size: 16px;
+      }
+    }
+    .row1-right {
+      padding-left: 5px;
+      height: 100%;
+      .row1-right-card {
+        height: 395px;
+        width: 100%;
+        overflow: hidden;
+        .ant-card-body {
+          padding: 0px;
         }
+        .hotevent {
+          margin: 9px;
+          margin-left: 20px;
+        }
+        .pagination {
+          text-align: center;
+        }
+      }
     }
   }
-  .row2-right{
-    padding-left:5px ;
+  .row2-right {
+    padding-left: 5px;
   }
 }
+
+
