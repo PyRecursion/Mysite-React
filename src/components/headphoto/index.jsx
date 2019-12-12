@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { Upload, Icon, message } from 'antd';
-
-
 import { connect } from 'react-redux'
 import {reqHeadphoto} from '../../redux/actions'
+import { UPLOADHEADSERVER } from '../../config/config';
 
 
 
@@ -54,7 +53,7 @@ class Headphoto extends Component {
         }
     };
     
-    getheadphoto=()=>this.state.imageUrl//转给父组件图像
+    
    
 
     render() {
@@ -67,7 +66,7 @@ class Headphoto extends Component {
         const { imageUrl } = this.state;
         console.log(this.props.id)
         const data={'id':this.props.id}
-        
+       
         
         return (
             <Upload
@@ -76,7 +75,7 @@ class Headphoto extends Component {
                 listType="picture-card"
                 className="avatar-uploader"
                 showUploadList={false}
-                action="/uploadhead"
+                action={UPLOADHEADSERVER}
                 beforeUpload={beforeUpload}
                 onChange={this.handleChange}
             >

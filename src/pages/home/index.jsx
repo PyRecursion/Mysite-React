@@ -20,6 +20,7 @@ import PostDetail from '../postDetail';
 
 
 
+
 const { Header, Content, Footer } = Layout;
 
 
@@ -28,6 +29,7 @@ class Index extends Component {
   constructor(props) {
     super(props)
     // 创建用来保存ref标识的标签对象的容器
+    
     this.state = {
       
     }
@@ -40,11 +42,11 @@ class Index extends Component {
     // console.log('现在的',user)
     const content = (
       <div>
-        <Headphoto id={this.props.user.id} ref="updatehead" />
+        <Headphoto id={this.props.user.id}  />
       </div>
     );
     return (
-      <Layout className="layout" style={{ height: '100%' }}>
+      <Layout className="layout" style={{height:'100%'}}>
         <Header>
           <span className='header-left'>Mysite</span>
           <span className='header-right'>
@@ -66,13 +68,14 @@ class Index extends Component {
 
         <Content style={{ padding: '0', backgroundColor: 'white' }}>
           <Switch>
-            <Route path="/music" component={Music} />
+            <Route path="/music/:id" component={Music} />
             <Route path="/story" component={Story} />
             <Route path="/photo" component={Photo} />
             <Route path="/movie" component={Movie} />
             <Route path="/blog" component={Blog} />
             <Route path="/postdetail/:id" component={PostDetail} />
             <Route path="/" component={Home} />
+            
           </Switch>
         </Content>
 

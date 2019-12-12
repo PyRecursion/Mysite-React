@@ -4,6 +4,7 @@
 
 import React, { Component } from "react";
 import E from "wangeditor";
+import { UPLOADIMGSERVER } from "../../../../config/config";
 
 class RichTextEditor extends Component {
     constructor(props, context) {
@@ -18,7 +19,7 @@ class RichTextEditor extends Component {
         const editor = new E(elem);
         
         editor.customConfig.uploadFileName = "upfile"; //置上传接口的文本流字段
-        editor.customConfig.uploadImgServer = "/img/upload"; //服务器接口地址
+        editor.customConfig.uploadImgServer = UPLOADIMGSERVER; //服务器接口地址
         editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024; // 将图片大小限制为 3M
         // 限制一次最多上传 5 张图片
         editor.customConfig.uploadImgMaxLength = 5;

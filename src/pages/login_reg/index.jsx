@@ -11,7 +11,7 @@ export default class Login_reg extends Component {
     render() {
         return (
             <div className='login_reg'>
-                <video src="\videos\bg2.mp4" autoPlay muted loop>
+                <video src="\videos\bg4.mp4" autoPlay muted loop>
                 </video>
                 <Switch>
                     <Route path="/login" component={Login} />

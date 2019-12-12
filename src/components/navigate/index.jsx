@@ -25,7 +25,7 @@ export default class Navigate extends Component{
                 <Link to='/home'>首页</Link>
                 </Menu.Item>   
                 <Menu.Item className='menu_item' key='music'>
-                <Link to='/music'>音乐</Link>
+                <Link to='/music/3'>音乐</Link>
                 </Menu.Item>
                 <Menu.Item className='menu_item' key='story'>
                 <Link to='/story'>小说</Link>

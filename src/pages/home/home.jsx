@@ -20,7 +20,13 @@ class Home extends Component {
 
     };
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.getNews()
+        
+
+    }
+
+    getNews=async()=>{
         const result = await reqNews();
         if (result.status === 0) {
             console.log(result.status)
@@ -35,9 +41,7 @@ class Home extends Component {
                 })
             }
         }
-
     }
-
 
 
     pageonChange = page => {
