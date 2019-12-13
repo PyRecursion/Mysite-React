@@ -8,15 +8,15 @@
  */
 import {combineReducers} from 'redux'
 
-/*
-用来管理头部标题的reducer函数
- */
+
 import storageUtils from "../utils/storageUtils"
 import {
   RECEIVE_USER,
   SHOW_ERROR_MSG,
   RESET_USER,
-  REG_USER
+  REG_USER,
+  TOP_SONGLIST,
+  SEARCH_SONGLIST
 } from './action-types'
 
 
@@ -42,6 +42,18 @@ function user(state = initUser, action) {
   }
 }
 
+const initsonglist=[]
+function songList(state = initsonglist, action) {
+  switch (action.type) {
+    case TOP_SONGLIST:
+      return action.songList
+    case SEARCH_SONGLIST:
+      return action.songList
+    default:
+      return state
+  }
+}
+
 /*
 向外默认暴露的是合并产生的总的reducer函数
 管理的总的state的结构:
@@ -51,5 +63,5 @@ function user(state = initUser, action) {
   }
  */
 export default combineReducers({
-  user
+  user,songList
 })

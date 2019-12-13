@@ -1,102 +1,94 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-import "./index.less"
 
-import { Icon, Input, AutoComplete } from 'antd';
+import { AutoComplete, Input, Button, Icon } from 'antd';
+import { seachSuggestMusic} from '../../api';
+import { reqSeachList } from '../../redux/actions';
+// import { handerTime, handersinger } from '../../utils/handerSongs';
 
-const { Option, OptGroup } = AutoComplete;
 
-const dataSource = [
-  {
-    title: 'Libraries',
-    children: [
-      {
-        title: 'AntDesign',
-        count: 10000,
-      },
-      {
-        title: 'AntDesign UI',
-        count: 10600,
-      },
-    ],
-  },
-  {
-    title: 'Solutions',
-    children: [
-      {
-        title: 'AntDesign UI',
-        count: 60100,
-      },
-      {
-        title: 'AntDesign',
-        count: 30010,
-      },
-    ],
-  },
-  {
-    title: 'Articles',
-    children: [
-      {
-        title: 'AntDesign design language',
-        count: 100000,
-      },
-    ],
-  },
-];
 
-function renderTitle(title) {
-  return (
-    <span>
-      {title}
-      <a
-        style={{ float: 'right' }}
-        href="https://www.google.com/search?q=antd"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        more
-      </a>
-    </span>
-  );
+
+class SeachTool extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: '',
+            dataSource: [],
+            SuggestMusics: []
+        };
+    }
+
+
+
+    onSearch = searchText => {
+        console.log(searchText)
+        this.setState({
+            dataSource: !searchText ? [] : this.state.dataSource,
+        });
+    };
+
+    onChange = async value => {
+        this.setState({ value })
+        if (value) {
+            const result = await seachSuggestMusic(value)
+            // var SuggestMusics=[]
+            if (result.code === 200) {
+                const songs = result.result.songs
+                if (songs) {
+                    var dataSource = songs.map(item => item.name + " " + item.artists[0].name)
+                    this.setState({
+                        dataSource,
+                    })
+                }
+            }
+        }
+    }
+
+
+
+    onSelect = value => {
+        console.log('onSelect', value);
+        if (value) {
+             this.props.reqSeachList(value)
+        }
+    }
+
+    render() {
+        const { dataSource, value } = this.state;
+        return (
+            <div className="certain-category-search-wrapper" style={{ width: 250 }}>
+                <AutoComplete
+                    value={value}
+                    dataSource={dataSource}
+                    style={{ width: 200 }}
+                    onSelect={this.onSelect}
+                    onSearch={this.onSearch}
+                    onChange={this.onChange}
+                    placeholder=""
+                >
+
+                    <Input
+                        suffix={
+                            <Button
+                                className="search-btn"
+                                style={{ marginRight: -12, height: 32 }}
+                                size="large"
+                                type="primary"
+                            >
+                                <Icon type="search" />
+                            </Button>
+                        }
+                    />
+                </AutoComplete>
+
+            </div>
+        );
+    }
 }
 
-const options = dataSource
-  .map(group => (
-    <OptGroup key={group.title} label={renderTitle(group.title)}>
-      {group.children.map(opt => (
-        <Option key={opt.title} value={opt.title}>
-          {opt.title}
-          <span className="certain-search-item-count">{opt.count} people</span>
-        </Option>
-      ))}
-    </OptGroup>
-  ))
-  .concat([
-    <Option disabled key="all" className="show-all">
-      <a href="https://www.google.com/search?q=antd" target="_blank" rel="noopener noreferrer">
-        View all results
-      </a>
-    </Option>,
-  ]);
-
-export default class  SeachTool extends React.Component{
-    render(){
-  return (
-    <div className="certain-category-search-wrapper" style={{ width: 250 }}>
-      <AutoComplete
-        className="certain-category-search"
-        dropdownClassName="certain-category-search-dropdown"
-        dropdownMatchSelectWidth={false}
-        dropdownStyle={{ width: 300 }}
-        size="large"
-        style={{ width: '100%' }}
-        dataSource={options}
-        placeholder="input here"
-        optionLabelProp="value"
-      >
-        <Input suffix={<Icon type="search" className="certain-category-icon" />} />
-      </AutoComplete>
-    </div>
-  );
-}
-}
+export default connect(
+    state => ({songList:state.songList}),
+    {reqSeachList}
+)(SeachTool)

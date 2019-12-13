@@ -48,7 +48,7 @@ export default class Content extends Component {
   getTopics = async (page, pageNum) => {
     const result = await reqTopic(page, pageNum)
     if (result.status === 0) {
-      console.log(result.data)
+      // console.log(result.data)
       this.setState({
         listData: result.data,
         total: result.total

@@ -43,7 +43,13 @@ export const reqNews =() =>ajax(BASE + '/reqNews')
 //获取音乐飙升榜
 export const reqMusic=(id)=>ajax(Baseurl+`/top/list?idx=${id}`)
 
+//搜索自动补全音乐
+export const seachSuggestMusic=(keywords)=>ajax(Baseurl+`/search/suggest?keywords=${keywords}`)
 
+//搜索音乐
+export const seachMusic=(keywords)=>ajax(Baseurl+`/search?keywords=${keywords}`)
+
+export const seachMusicDetail=(keywords)=>ajax(Baseurl+`/song/detail?ids=${keywords}`)
 
 // export const test111 = () => {
 

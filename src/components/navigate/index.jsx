@@ -1,15 +1,22 @@
 import React, { Component } from 'react'
 import { Menu } from 'antd';
 import './index.less'
-import { Link } from "react-router-dom";
+import { Link,withRouter } from "react-router-dom";
 
-export default class Navigate extends Component{
-    state = {
-        current: 'home',
-      };
+class Navigate extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      current: props.location.pathname.match(/[a-z]+/)? props.location.pathname.match(/[a-z]+/)[0] :"",
+    };
+  }
     
+      // static getDerivedStateFromProps(nextProps, prevState){
+      //   console.log(222,prevState)
+
+      // }
       handleClick = e => {
-        console.log('click ', e);
+        
         this.setState({
           current: e.key,
         });
@@ -43,3 +50,5 @@ export default class Navigate extends Component{
         )
     }
 }
+
+export default withRouter(Navigate)

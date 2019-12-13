@@ -5,17 +5,19 @@ import { Menu, Layout, Affix } from 'antd';
 import SongList from './songList';
 import { Switch, Route, Link } from 'react-router-dom'
 import SeachTool from './seachTool';
+import { connect } from 'react-redux'
+import { reqTopList } from '../../redux/actions'
+
 
 const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
-export default class Music extends Component {
+class Music extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentPage: this.props.match.params.id,
       openKeys: "sub1",
-      
     };
   }
   // 删除指定音乐
@@ -36,6 +38,7 @@ export default class Music extends Component {
 
   handleClick = e => {
     console.log('click ', e);
+    this.props.reqTopList(e.key)
     this.setState({
       currentPage: e.key
     })
@@ -70,7 +73,6 @@ export default class Music extends Component {
 
   render() {
     const openKeys = this.state.openKeys
-    console.log(openKeys)
     return (
 
       <div className="music-box" >
@@ -122,7 +124,7 @@ export default class Music extends Component {
             </Sider>
           </Affix>
           <Content style={{ backgroundColor: "white" }}>
-            <div style={{padding:"10px",display:"flex"}}><h1>歌曲列表</h1><SeachTool /></div>
+            <div style={{padding:"10px"}}><h1>歌曲列表<div style={{float:"right"}}><SeachTool /></div></h1></div>
             <Switch>
               <Route path="/music/:id" component={SongList} />
             </Switch>
@@ -136,4 +138,7 @@ export default class Music extends Component {
     );
   }
 }
-
+export default connect(
+  state => ({ songList: state.songList }),
+    { reqTopList }
+) (Music)

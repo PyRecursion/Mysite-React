@@ -29,7 +29,6 @@ class Home extends Component {
     getNews=async()=>{
         const result = await reqNews();
         if (result.status === 0) {
-            console.log(result.status)
             this.setState({
                 data: result.data
             })
@@ -59,7 +58,7 @@ class Home extends Component {
         const sideimgtop = this.state.sideimgtop
         const sideimgbottom = this.state.sideimgbottom
         const hoteventList = this.state.hoteventList.slice((this.state.currentpage - 1) * 10, this.state.currentpage * 10)
-        console.log(this.state.data.hotevent)
+        // console.log(this.state.data.hotevent)
         return (
             <div className='show'>
                 <Row className='row1'>

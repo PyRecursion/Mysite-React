@@ -43,7 +43,7 @@ class AudioPlay extends Component {
  UNSAFE_componentWillReceiveProps(nextprops){
     const musicList=nextprops.musicList
     var currentMusic={}
-    console.log(musicList.length)
+    // console.log(musicList.length)
     if (!(musicList.length===0)){
       currentMusic=musicList[musicList.length-1]
       this.setState({
@@ -51,9 +51,6 @@ class AudioPlay extends Component {
         flag:this.state.flag+1
       })
     }
-    
-   
-    console.log(this.state.currentMusic,this.state.flag)
   }
   
   
@@ -127,7 +124,9 @@ class AudioPlay extends Component {
         // 当前播放宽度计算 500是进度条宽度
         const playWidth = 500 * (audio.currentTime / audio.duration);
         // 如果正在拖动进度条的时候，不监听播放进度
+        if(this.processPlayed){
         if (!processItemMove) {
+          
           this.processPlayed.style.width = `${playWidth}px`;
           this.processItem.style.left = `${playWidth - 4}px`;
           // 未拖动时根据时间变化设置当前时间
@@ -135,8 +134,10 @@ class AudioPlay extends Component {
             currentTime: this.getTime(currentTime)
           });
         }
+     
         this.processBuffered.style.width = `${bufferWidth}px`;
-      });
+    }
+  });
   
       // 当前音乐播放完毕监听
       audio.addEventListener("ended", () => {
