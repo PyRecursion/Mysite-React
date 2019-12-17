@@ -6,16 +6,19 @@ import { Affix } from 'antd';
 import LinkButton from '../../components/link-button';
 import RichTextEditor from '../home/Posts/publish/rich-text-editor';
 import { Pagination } from 'antd';
+// import img3 from '../../assets/images/'
+import { connect } from 'react-redux'
 
 import Replys from './replys';
 import storageUtils from '../../utils/storageUtils';
+
 
 
 import { BackTop } from 'antd';
 
 const { Panel } = Collapse;
 
-export default class PostDetail extends Component {
+class PostDetail extends Component {
     constructor(props) {
         super(props)
         // 创建用来保存ref标识的标签对象的容器
@@ -27,8 +30,8 @@ export default class PostDetail extends Component {
             to_uid: '',
             replyUser: '',
             flag: 0,
-            currentpage:1,
-            pageNum:20
+            currentpage: 1,
+            pageNum: 20
             // showInput:'PBreply'
         }
         // this.showPBreply=0
@@ -72,6 +75,9 @@ export default class PostDetail extends Component {
 
 
     gotoComment = () => {
+        if (!this.props.user){
+            message.info("请先登录")
+        }
         document.body.scrollTop = document.documentElement.scrollTop = 100000;
     }
 
@@ -84,8 +90,8 @@ export default class PostDetail extends Component {
             currentpage,
             pageNum
         })
-    
-      };
+
+    };
 
 
     //给子函数设置函数获取数据 点击回复必出输入框
@@ -98,11 +104,11 @@ export default class PostDetail extends Component {
     //     })
     // }
 
- 
+
     render() {
         const theme = this.state.theme
-        const arr = this.state.comments.slice((this.state.currentpage-1)*this.state.pageNum, this.state.currentpage*this.state.pageNum)
-
+        const arr = this.state.comments.slice((this.state.currentpage - 1) * this.state.pageNum, this.state.currentpage * this.state.pageNum)
+        const user = this.props.user
         return (
             <div className="container" >
                 {/* 主题 */}
@@ -150,7 +156,7 @@ export default class PostDetail extends Component {
 
                                         <div className="replyButton">
                                             <div className="info">
-                                                <span style={{ marginRight: '10px' }}>{index+(this.state.currentpage-1)*this.state.pageNum + 2}楼</span>
+                                                <span style={{ marginRight: '10px' }}>{index + (this.state.currentpage - 1) * this.state.pageNum + 2}楼</span>
                                                 <span>{comment.date}</span>
                                             </div>
                                             <Collapse
@@ -182,20 +188,33 @@ export default class PostDetail extends Component {
                     {/* 分页和富文本框 */}
 
                     <div className="page">
-                        <Pagination 
-                        defaultCurrent={1} 
-                        total={this.state.comments.length}
-                        current={this.state.currentpage}
-                        onChange={this.pageonChange}
-                        defaultPageSize={20} />
+                        <Pagination
+                            defaultCurrent={1}
+                            total={this.state.comments.length}
+                            current={this.state.currentpage}
+                            onChange={this.pageonChange}
+                            defaultPageSize={20} />
                     </div>
-                    <div className="editor-total">
-                        <h3>发表评论</h3>
-                        <div className="editor">
-                            <RichTextEditor ref={this.editor} />
+                    {user ?
+                        <div className="editor-total">
+                            <h3>发表评论</h3>
+
+                            <div className="editor">
+                                <RichTextEditor ref={this.editor} />
+                            </div>
+                            <Button onClick={this.commitComment} type="primary" style={{ marginTop: '20px' }}>提交</Button>
+                        </div> 
+                        :
+                        <div className="editor-total" style={{ display: 'none' }}>
+                            <h3>发表评论</h3>
+
+                            <div className="editor">
+                                <RichTextEditor ref={this.editor} />
+                            </div>
+                            <Button onClick={this.commitComment} type="primary" style={{ marginTop: '20px' }}>提交</Button>
                         </div>
-                        <Button onClick={this.commitComment} type="primary" style={{ marginTop: '20px' }}>提交</Button>
-                    </div>
+                    }
+
                     {/* 回到顶部 */}
                     <div>
                         <BackTop />
@@ -205,9 +224,12 @@ export default class PostDetail extends Component {
                     </div>
                 </content>
                 <div className="side-total">
-                    右侧
+                    {/* <img src={img3} width={'100%'} alt="66-1ZF2150059612.png"/> */}
                 </div>
             </div >
         )
     }
 }
+export default connect(
+    state => ({ user: state.user }),
+)(PostDetail)

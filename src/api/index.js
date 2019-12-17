@@ -1,14 +1,10 @@
 
 // import jsonp from "jsonp"
 import ajax from './ajax'
+import { BASE, Baseurl } from '../config/config'
 
 
-// const BASE = 'http://127.0.0.1:5000'
-// const BASE = '/api'
 
-const BASE = ''
-//开发环境网易云接口
-const Baseurl="http://192.168.100.100:3000"
 
 //注册请求
 export const reqRes= (loginname, email,password,nickname) =>ajax(BASE + '/reg', {loginname,email,password,nickname},'POST')

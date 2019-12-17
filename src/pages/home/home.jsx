@@ -101,15 +101,16 @@ class Home extends Component {
                     </Col>
                 </Row>
                 <Row >
-                    <Col span={16} className='row2-left'>
+                    <Col span={18} className='row2-left'>
                         <Posts />
                     </Col>
-                    <Affix offsetTop={this.state.top}>
-                        <Col span={8} className='row2-right' style={{ float: 'right' }}>
+                    
+                        <Col span={6} className='row2-right' style={{ float: 'right' }}>
                             <Bulletin />
+                            <Affix offsetTop={this.state.top}>
                             <AddressNav />
+                            </Affix>
                         </Col>
-                    </Affix>
                 </Row>
             </div>
         )

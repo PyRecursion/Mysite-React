@@ -30,7 +30,7 @@ class Login extends Component {
         // }
         this.props.login(loginname, password)
       }else{
-        message('检验失败!')
+        message.error('请输入正确用户名密码!')
       }
     });
   };

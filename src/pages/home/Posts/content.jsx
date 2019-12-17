@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { List, Avatar, Icon, Pagination ,Popover} from 'antd';
+import { List, Avatar, Icon, Pagination ,Popover,Spin } from 'antd';
 import "./content.less"
 import { reqTopic } from '../../../api';
 import UserInfoCard from '../../../components/userInfoCard';
@@ -28,6 +28,7 @@ const IconText = ({ type, text }) => (
 
 export default class Content extends Component {
   state = {
+    loading:true,
     listData: [],
     currentpage: 1,
     total: 0 //总页数
@@ -51,7 +52,8 @@ export default class Content extends Component {
       // console.log(result.data)
       this.setState({
         listData: result.data,
-        total: result.total
+        total: result.total,
+        loading:false
       })
 
     }
@@ -67,7 +69,9 @@ export default class Content extends Component {
 
   render() {
     const listData = this.state.listData
+    const loading=this.state.loading
     return (
+      <Spin spinning={loading} tip="加载中，请耐心等待">
       <div>
         <List
           itemLayout="vertical"
@@ -111,6 +115,7 @@ export default class Content extends Component {
         />
         <Pagination current={this.state.currentpage} onChange={this.onChange} total={this.state.total} />
       </div>
+      </Spin>
     )
   }
 }
