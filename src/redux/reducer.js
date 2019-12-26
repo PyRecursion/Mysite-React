@@ -42,6 +42,9 @@ function user(state = initUser, action) {
   }
 }
 
+/*
+用来管理当前显示的歌曲列表
+ */
 const initsonglist=[]
 function songList(state = initsonglist, action) {
   switch (action.type) {

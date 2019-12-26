@@ -124,7 +124,7 @@ class Music extends Component {
             </Sider>
           </Affix>
           <Content style={{ backgroundColor: "white" }}>
-            <div style={{padding:"10px"}}><h1>歌曲列表<div style={{float:"right"}}><SeachTool /></div></h1></div>
+            <div style={{ padding: "10px" }}><h1>歌曲列表<div style={{ float: "right" }}><SeachTool /></div></h1></div>
             <Switch>
               <Route path="/music/:id" component={SongList} />
             </Switch>
@@ -132,7 +132,7 @@ class Music extends Component {
 
         </Layout>
 
-       
+
 
       </div >
     );
@@ -140,5 +140,5 @@ class Music extends Component {
 }
 export default connect(
   state => ({ songList: state.songList }),
-    { reqTopList }
-) (Music)
+  { reqTopList }
+)(Music)

@@ -7,6 +7,8 @@ import React, { Component } from 'react'
 import {HashRouter,Switch,Route} from 'react-router-dom'
 import Login_reg from './pages/login_reg'
 import Index from './pages/home'
+import StoryDetail from './pages/story/storyDetail'
+
 
 
 
@@ -17,6 +19,7 @@ export default class App extends Component {
                 <Switch>
                     <Route path="/login" component={Login_reg} />
                     <Route path="/reg" component={Login_reg} />
+                    <Route path="/story/:dir" component={StoryDetail} />
                     <Route path="/" component={Index} />
                 </Switch>
             </HashRouter>

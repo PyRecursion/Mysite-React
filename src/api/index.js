@@ -45,7 +45,36 @@ export const seachSuggestMusic=(keywords)=>ajax(Baseurl+`/search/suggest?keyword
 //搜索音乐
 export const seachMusic=(keywords)=>ajax(Baseurl+`/search?keywords=${keywords}`)
 
+//搜音乐详情
 export const seachMusicDetail=(keywords)=>ajax(Baseurl+`/song/detail?ids=${keywords}`)
+
+//获取小说页小说
+export const reqStorys=(stype)=>ajax(BASE+`/story?stype=${stype}`,)
+
+//获取小说类型
+export const reqStoryTypeList=()=>ajax(BASE+"/storyTypeList")
+
+
+//获取小说目录
+export const reqStoryDirs=(storyid)=>ajax(BASE+`/storydirs?storyid=${storyid}`)
+
+//获取小说内容
+export const reqStoryContent=(storyid,path)=>ajax(BASE+"/storyContent",{storyid,path})
+
+//获取下一页
+export const reqStoryNextPage=(storyid,path)=>ajax(BASE+"/storyNextPage",{storyid,path})
+
+
+//获取图片类型列表
+export const reqImagesTypes=()=>ajax(BASE+"/imagesTypes")
+
+//获取图片
+export const reqimages=(typeId,curPage)=>ajax(BASE+"/imagesInfo",{typeId,curPage})
+
+
+//获取电影列表
+export const reqMovies=()=>ajax(BASE+"/reqMovies")
+// export const reqmovieInfo=()=>ajax('https://movie.douban.com/j/subject_abstract?subject_id=27087724')
 
 // export const test111 = () => {
 
@@ -64,4 +93,22 @@ export const seachMusicDetail=(keywords)=>ajax(Baseurl+`/song/detail?ids=${keywo
   
 //       })
 //     })
+//   }
+
+
+// export const reqWeather = (city) => {
+
+//     // 执行器函数: 内部去执行异步任务, 
+//     // 成功了调用resolve(), 失败了不调用reject(), 直接提示错误
+//     return new Promise((resolve, reject) => { 
+//       const url = `http://api.map.baidu.com/telematics/v3/weather?location=北京&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`
+//       jsonp(url, {}, (error, data) => {
+//         if (!error && data.error===0) { // 成功的
+//           const {dayPictureUrl, weather} = data.results[0].weather_data[0]
+//           resolve({dayPictureUrl, weather})
+//         } 
+  
+//       })
+//     })
+    
 //   }

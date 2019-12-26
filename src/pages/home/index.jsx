@@ -26,16 +26,6 @@ const { Header, Content, Footer } = Layout;
 
 
 class Index extends Component {
-  constructor(props) {
-    super(props)
-    // 创建用来保存ref标识的标签对象的容器
-    
-    this.state = {
-      
-    }
-  }
-
-
 
   render() {
     const user = this.props.user
@@ -70,7 +60,7 @@ class Index extends Component {
           <Switch>
             <Route path="/music/:id" component={Music} />
             <Route path="/story" component={Story} />
-            <Route path="/photo" component={Photo} />
+            <Route path="/photo/:typeId" component={Photo} />
             <Route path="/movie" component={Movie} />
             <Route path="/blog" component={Blog} />
             <Route path="/postdetail/:id" component={PostDetail} />
