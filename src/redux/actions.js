@@ -18,7 +18,6 @@ import { message } from 'antd';
 import { handerTime, handersinger } from '../utils/handerSongs';
 
 
-
 /*
 接收用户的同步action
  */
@@ -102,7 +101,6 @@ export const reqTopList = (id) => {
       const songList = result.playlist.tracks
       var data = []
       for (let index = 0; index < songList.length; index++) {
-
         const element = songList[index];
         const info = {
           'key': index,
@@ -114,9 +112,7 @@ export const reqTopList = (id) => {
           'pic': element.al.picUrl
         }
         data.push(info)
-
       }
-      console.log(222, data)
       dispatch(topSongList(data))
     } else {
       message.error("请求失败")
@@ -138,7 +134,6 @@ export const reqSeachList = (keywords) => {
           _.push(element.id)
         }
         const querySonglist = await seachMusicDetail(_.join(","))
-        console.log(querySonglist)
         if (result.code === 200) {
           var data = []
           for (let index = 0; index < querySonglist.songs.length; index++) {
@@ -155,9 +150,7 @@ export const reqSeachList = (keywords) => {
             }
             data.push(info)
           }
-          console.log(222, data)
           dispatch(seachSongList(data))
-
         }
       }
     }

@@ -31,7 +31,7 @@ export default class index extends Component {
         if (result.status === 0) {
             this.setState({
                 movieList: result.data,
-                curPlay_url:'/videos/'+result.data[0].subject.id+".mp4",
+                curPlay_url:'/static/videos/'+result.data[0].subject.id+".mp4",
                 curMovieInfo:curMovieInfo
             })
         }
@@ -49,7 +49,7 @@ export default class index extends Component {
     curMovieInfo.comment=comment
    
     this.setState({
-        curPlay_url:'/videos/'+curPlay_url+".mp4",
+        curPlay_url:'/static/videos/'+curPlay_url+".mp4",
         curMovieInfo:curMovieInfo
     })
     window.scrollTo(0,0)
@@ -122,7 +122,7 @@ export default class index extends Component {
                                 <Card.Grid style={gridStyle} >
                                     {/* <div flag={item.subject.id} onClick={this.onPlay}> */}
                                     <img className="movie-img" 
-                                        src={"/images/" + item.subject.id + ".jpg"} 
+                                        src={"/static/images/movieImg/" + item.subject.id + ".jpg"} 
                                         alt={item.subject.id} 
                                         flag={item.subject.id}
                                         title={item.subject.title}

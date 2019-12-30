@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { AutoComplete, Input, Button, Icon } from 'antd';
 import { seachSuggestMusic} from '../../api';
 import { reqSeachList } from '../../redux/actions';
-// import { handerTime, handersinger } from '../../utils/handerSongs';
+
 
 
 
@@ -55,6 +55,10 @@ class SeachTool extends React.Component {
         }
     }
 
+
+    getseachResult=()=>{
+        this.props.reqSeachList(this.state.value)
+    }
     render() {
         const { dataSource, value } = this.state;
         return (
@@ -76,6 +80,7 @@ class SeachTool extends React.Component {
                                 style={{ marginRight: -12, height: 32 }}
                                 size="large"
                                 type="primary"
+                                onClick ={this.getseachResult}
                             >
                                 <Icon type="search" />
                             </Button>

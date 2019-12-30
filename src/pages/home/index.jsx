@@ -58,7 +58,7 @@ class Index extends Component {
 
         <Content style={{ padding: '0', backgroundColor: 'white' }}>
           <Switch>
-            <Route path="/music/:id" component={Music} />
+            <Route path="/music/:mid" component={Music} />
             <Route path="/story" component={Story} />
             <Route path="/photo/:typeId" component={Photo} />
             <Route path="/movie" component={Movie} />

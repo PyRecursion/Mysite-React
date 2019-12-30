@@ -37,7 +37,6 @@ class Music extends Component {
   };
 
   handleClick = e => {
-    console.log('click ', e);
     this.props.reqTopList(e.key)
     this.setState({
       currentPage: e.key
@@ -126,7 +125,7 @@ class Music extends Component {
           <Content style={{ backgroundColor: "white" }}>
             <div style={{ padding: "10px" }}><h1>歌曲列表<div style={{ float: "right" }}><SeachTool /></div></h1></div>
             <Switch>
-              <Route path="/music/:id" component={SongList} />
+              <Route path="/music/:mid" component={SongList} />
             </Switch>
           </Content>
 
