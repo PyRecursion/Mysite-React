@@ -16,7 +16,7 @@ import { connect } from 'react-redux'
 import { logout, reqHeadphoto } from '../../redux/actions'
 import Headphoto from '../../components/headphoto';
 import PostDetail from '../postDetail';
-
+import AudioPlay from '../../components/audioPlay/audioPlay';
 
 
 
@@ -26,10 +26,12 @@ const { Header, Content, Footer } = Layout;
 
 
 class Index extends Component {
+  toupdateaudiolist=()=>{
+    this.setState({})
+  }
 
   render() {
     const user = this.props.user
-    // console.log('现在的',this.props)
     const content = (
       <div>
         <Headphoto id={this.props.user.id}  />
@@ -56,7 +58,7 @@ class Index extends Component {
         <Navigate />
         
 
-        <Content style={{ padding: '0', backgroundColor: 'white' }}>
+        <Content style={{ padding: '0', backgroundColor: 'white' }} >
           <Switch>
             <Route path="/music/:mid" component={Music} />
             <Route path="/story" component={Story} />
@@ -65,10 +67,12 @@ class Index extends Component {
             <Route path="/blog" component={Blog} />
             <Route path="/postdetail/:id" component={PostDetail} />
             <Route path="/" component={Home} />
-            
           </Switch>
+          <div>
+          {/* <AudioPlay newMusicList={musicList}/> */}
+          <AudioPlay  />
+        </div>
         </Content>
-
         <Footer style={{ textAlign: 'center' }}>Design ©2018 Created by Recursion</Footer>
       </Layout>
     )
@@ -76,5 +80,5 @@ class Index extends Component {
 }
 export default connect(
   state => ({ user: state.user }),
-  { logout, reqHeadphoto }
+  { logout,reqHeadphoto }
 )(Index)

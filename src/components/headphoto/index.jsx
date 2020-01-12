@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import {reqHeadphoto} from '../../redux/actions'
 import { UPLOADHEADSERVER } from '../../config/config';
 
-
-
 function getBase64(img, callback) {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
@@ -53,9 +51,6 @@ class Headphoto extends Component {
         }
     };
     
-    
-   
-
     render() {
         const uploadButton = (
             <div>
@@ -64,10 +59,7 @@ class Headphoto extends Component {
             </div>
         );
         const { imageUrl } = this.state;
-        console.log(this.props.id)
-        const data={'id':this.props.id}
-       
-        
+        const data={'id':this.props.id}  
         return (
             <Upload
                 name="avatar"
@@ -79,8 +71,7 @@ class Headphoto extends Component {
                 beforeUpload={beforeUpload}
                 onChange={this.handleChange}
             >
-                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                
+                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}     
             </Upload>
         );
     }
@@ -89,4 +80,4 @@ class Headphoto extends Component {
 export default connect(
     state => ({ user: state.user }),
     {reqHeadphoto}
-)(Headphoto) 
+)(Headphoto)

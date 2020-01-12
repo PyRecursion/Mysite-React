@@ -77,9 +77,7 @@ export default class Photo extends Component {
     showBigImages = (e) => {
         const curIndex = parseInt(e.target.getAttribute("index"))
         // const alt = e.target.getAttribute("alt")
-        // console.log(e.target)
         const { images } = this.state
-        console.log(images)
         this.setState({
             visible: true,
             images,
@@ -91,7 +89,6 @@ export default class Photo extends Component {
 
 
     imageChange = (activeImage, index) => {
-        console.log(activeImage, index)
         const images_lenth = this.state.images.length
         if ((index + 10) > images_lenth) {
             this.getImageNextPage()

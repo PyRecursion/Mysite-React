@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
 import { Table, Tag, Icon } from 'antd';
-import AudioPlay from './audioPlay';
+// import AudioPlay from './audioPlay';
 import { handerTime, handersinger } from '../../utils/handerSongs';
 import { connect } from 'react-redux'
-import { reqTopList } from '../../redux/actions'
+import { reqTopList,updateMusic } from '../../redux/actions'
 
 
 
 class SongList extends Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       id: props.match.params.mid,
-      musicList: [
-      ]
     }
   }
+
   componentDidMount() {
     this.props.reqTopList(this.state.id)
   }
@@ -28,8 +28,8 @@ class SongList extends Component {
     song.resource = 'https://music.163.com/song/media/outer/url?id=' + song.id
     song.time = e.target.getAttribute('time')
     song.img = e.target.getAttribute('img')
-    var newmusicList = this.state.musicList
-    //去重
+    var newmusicList =this.props.musicList
+    //用户点击同一首歌去重
     var flag = 0
     for (let index = 0; index < newmusicList.length; index++) {
       const element = newmusicList[index];
@@ -41,26 +41,26 @@ class SongList extends Component {
     if (flag === 0) {
       newmusicList.push(song)
     }
-    this.setState({
-      musicList: newmusicList
-    })
+    this.props.updateMusic(newmusicList)
+    this.props.flashstate()
+    
   }
 
-  // 删除指定音乐
-  onDeleteMusic = id => {
-    const { musicList } = this.state;
-    const newMusicList = [];
-    musicList.forEach(item => {
-      if (item.id !== id) {
-        newMusicList.push(item);
-      }
-    });
-    this.setState({ musicList: newMusicList });
-  };
-  // 删除全部音乐
-  onDeleteAllMusic = () => {
-    this.setState({ musicList: [] });
-  };
+  // // 删除指定音乐
+  // onDeleteMusic = id => {
+  //   const { musicList } = this.state;
+  //   const newMusicList = [];
+  //   musicList.forEach(item => {
+  //     if (item.id !== id) {
+  //       newMusicList.push(item);
+  //     }
+  //   });
+  //   this.setState({ musicList: newMusicList });
+  // };
+  // // 删除全部音乐
+  // onDeleteAllMusic = () => {
+  //   this.setState({ musicList: [] });
+  // };
 
   render() {
     const data = this.props.songList
@@ -108,27 +108,27 @@ class SongList extends Component {
         render: id => <a href={`https://music.163.com/song/media/outer/url?id=${id}`} target='_blank' rel="noopener noreferrer">下载地址</a>
       },
     ]
-    const { musicList } = this.state
+    // const { musicList } = this.state
     return (
-      <div style={{ width: "1000px" }}>
+      <div style={{ width: "1000px" }} >
 
         <Table
           columns={columns}
           dataSource={data}
           pagination={false}
         />
-        <div>
+        {/* <div>
           <AudioPlay
             musicList={musicList}
             onDeleteMusic={this.onDeleteMusic}
             onDeleteAllMusic={this.onDeleteAllMusic}
           />
-        </div>
+        </div> */}
       </div>
     )
   }
 }
 export default connect(
-  state => ({ songList: state.songList }),
-  { reqTopList }
+  state => ({ songList: state.songList,musicList:state.musicList,flashstate:state.flashstate}),
+  { reqTopList,updateMusic}
 )(SongList)

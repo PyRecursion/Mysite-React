@@ -109,8 +109,7 @@ class PBreply extends Component {
 
   UNSAFE_componentWillReceiveProps(props) {   //注意这里用props 当时这个问题搞了我好久
     this.refs.PBreply.className = "showPBreply1"
-
-    console.log(props.replyUserName, props.replyUserid)
+    // console.log(props.replyUserName, props.replyUserid)
     if (props.replyUserName) {
       this.setState({
         headinfo: "回复 " + props.replyUserName + " : ",

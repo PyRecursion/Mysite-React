@@ -38,7 +38,6 @@ export default class Content extends Component {
   }
 
   onChange = page => {
-    console.log(page);
     this.getTopics(page, 10)
     this.setState({
       currentpage: page,
@@ -49,7 +48,6 @@ export default class Content extends Component {
   getTopics = async (page, pageNum) => {
     const result = await reqTopic(page, pageNum)
     if (result.status === 0) {
-      // console.log(result.data)
       this.setState({
         listData: result.data,
         total: result.total,
@@ -76,14 +74,6 @@ export default class Content extends Component {
         <List
           itemLayout="vertical"
           size="large"
-          // pagination={{
-          //   onChange: page => {
-          //     console.log(page);
-          //     this.getTopics(page,10)
-          //     document.body.scrollTop = document.documentElement.scrollTop = 500; //屏幕滚动
-          //   },
-          //   pageSize: 20, //最多显示
-          // }}
           dataSource={listData}
           footer={
             <div>

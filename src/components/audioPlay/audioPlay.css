@@ -1,4 +1,4 @@
-body,
+/* body,
 div,
 dl,
 dt,
@@ -23,10 +23,9 @@ button,
 table {
   padding: 0;
   margin: 0;
-}
+} */
 
 /* 主布局*/
-
 .mainLayout {
   position: fixed;
   bottom: 0;
@@ -39,7 +38,6 @@ table {
 }
 
 /* 主内容展示*/
-
 .mainContent {
   height: 52px;
   width: 100%;
@@ -590,7 +588,7 @@ table {
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
-  speak: none;
+  /* speak: none; */
   font-style: normal;
   font-weight: normal;
   font-variant: normal;

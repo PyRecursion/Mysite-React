@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Icon, Input, Button, message } from 'antd';
 import { Link, Redirect } from 'react-router-dom'
-import { reqLog } from '../../api';
+// import { reqLog } from '../../api';
 // import storage from '../../utils/storageUtils.js'
 
 import {login} from '../../redux/actions'
@@ -17,8 +17,8 @@ class Login extends Component {
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
         const { loginname, password } = values;
-        const result = await reqLog(loginname, password)
-        console.log(result)
+        // const result = await reqLog(loginname, password)
+        // console.log(result)
         // if (result.status === 0) {
         //   storage.saveUser(result.data)
         //   this.setState({

@@ -41,9 +41,6 @@ export default class Replys extends Component {
     
 
     render() {
-        // const actions = [
-        //     <span key="comment-basic-reply-to">回复</span>,
-        // ];
         const replys = this.state.replys
         return (
             <div >

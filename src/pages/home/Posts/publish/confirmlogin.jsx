@@ -7,18 +7,7 @@ export default class Confirmlogin extends Component {
         visible: true,
         tologin: 0,
     };
-
-
-
-    //   showModal = () => {
-    //     this.setState({
-    //       visible: true,
-    //     });
-    //   };
-
     handleOk = e => {
-        console.log(e);
-        console.log(this.props)
         this.setState({
             visible: false,
             tologin: 1
@@ -26,7 +15,6 @@ export default class Confirmlogin extends Component {
     };
 
     handleCancel = e => {
-        console.log(e);
         this.setState({
             visible: false,
         });

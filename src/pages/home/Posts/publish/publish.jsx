@@ -40,7 +40,6 @@ class Publish extends Component {
                 }
                 if (result.status === 0) {
                     message.success('操作成功')
-                    console.log(this.props)
                     this.props.backtab1();
                 } else {
                     message.info(result.msg)

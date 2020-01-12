@@ -48,7 +48,6 @@ class PostDetail extends Component {
     getAuthorPost = async (id) => {
         const result = await reqPostDetail(id)
         if (result.status === 0) {
-            console.log(result)
             this.setState({
                 theme: result.theme,
                 comments: result.comments
@@ -82,7 +81,6 @@ class PostDetail extends Component {
     }
 
     pageonChange = page => {
-        console.log(page);
         //注意此时的this.state.currentpage还未改变,不要用this.state.currentpage
         const currentpage = page
         const pageNum = 20

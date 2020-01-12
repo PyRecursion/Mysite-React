@@ -1,13 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
-
 import { AutoComplete, Input, Button, Icon } from 'antd';
 import { seachSuggestMusic} from '../../api';
 import { reqSeachList } from '../../redux/actions';
-
-
-
 
 
 class SeachTool extends React.Component {
@@ -20,10 +15,7 @@ class SeachTool extends React.Component {
         };
     }
 
-
-
     onSearch = searchText => {
-        console.log(searchText)
         this.setState({
             dataSource: !searchText ? [] : this.state.dataSource,
         });
@@ -46,15 +38,12 @@ class SeachTool extends React.Component {
         }
     }
 
-
-
     onSelect = value => {
-        console.log('onSelect', value);
+        // console.log('onSelect', value);
         if (value) {
              this.props.reqSeachList(value)
         }
     }
-
 
     getseachResult=()=>{
         this.props.reqSeachList(this.state.value)
@@ -87,7 +76,6 @@ class SeachTool extends React.Component {
                         }
                     />
                 </AutoComplete>
-
             </div>
         );
     }

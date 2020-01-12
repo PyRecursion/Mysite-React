@@ -9,6 +9,7 @@ import { reqNews } from '../../api';
 
 
 
+
 class Home extends Component {
     state = {
         top: 10,
@@ -44,7 +45,6 @@ class Home extends Component {
 
 
     pageonChange = page => {
-        console.log(page);
         //注意此时的this.state.currentpage还未改变,不要用this.state.currentpage
         const currentpage = page
         this.setState({
@@ -54,18 +54,15 @@ class Home extends Component {
     };
 
     render() {
-
         const sideimgtop = this.state.sideimgtop
         const sideimgbottom = this.state.sideimgbottom
         const hoteventList = this.state.hoteventList.slice((this.state.currentpage - 1) * 10, this.state.currentpage * 10)
-        // console.log(this.state.data.hotevent)
         return (
             <div className='show'>
                 <Row className='row1'>
                     <Col span={12}>
                         <Banner bannerData={this.state.data.banner} />
                     </Col>
-
                     <Col span={6}>
 
                         <div className='row1-top'>

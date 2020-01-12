@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-
 import { Menu, Layout, Affix } from 'antd';
-
 import SongList from './songList';
 import { Switch, Route, Link } from 'react-router-dom'
 import SeachTool from './seachTool';
@@ -15,6 +13,7 @@ const { SubMenu } = Menu;
 class Music extends Component {
   constructor(props) {
     super(props);
+    console.log(222,props)
     this.state = {
       currentPage: this.props.match.params.id,
       openKeys: "sub1",
@@ -59,7 +58,7 @@ class Music extends Component {
         })
       }
     }
-
+    
     for (let index = 0; index < sub3.length; index++) {
       const element = sub3[index];
       if (key === element) {
@@ -128,15 +127,12 @@ class Music extends Component {
               <Route path="/music/:mid" component={SongList} />
             </Switch>
           </Content>
-
         </Layout>
-
-
-
       </div >
     );
   }
 }
+
 export default connect(
   state => ({ songList: state.songList }),
   { reqTopList }

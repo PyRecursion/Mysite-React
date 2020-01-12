@@ -1,13 +1,10 @@
 //管理状态数据
-
-
 //登录用户的reducer函数
 
 /*
 用来根据老的state和指定的action生成并返回新的state的函数
  */
 import {combineReducers} from 'redux'
-
 
 import storageUtils from "../utils/storageUtils"
 import {
@@ -16,7 +13,12 @@ import {
   RESET_USER,
   REG_USER,
   TOP_SONGLIST,
-  SEARCH_SONGLIST
+  SEARCH_SONGLIST,
+  DEL_ONEMUSIC,
+  DEL_ALLMUSIC,
+  UPDATE_MUSIC,
+  FLASHSTATE
+
 } from './action-types'
 
 
@@ -24,7 +26,6 @@ import {
 用来管理当前登陆用户的reducer函数
  */
 const initUser = storageUtils.getUser()
-
 function user(state = initUser, action) {
   switch (action.type) {
     case REG_USER:
@@ -42,9 +43,7 @@ function user(state = initUser, action) {
   }
 }
 
-/*
-用来管理当前显示的歌曲列表
- */
+//用来管理当前显示的歌曲列表
 const initsonglist=[]
 function songList(state = initsonglist, action) {
   switch (action.type) {
@@ -57,8 +56,31 @@ function songList(state = initsonglist, action) {
   }
 }
 
-/*
-向外默认暴露的是合并产生的总的reducer函数
+//用来管理当前音乐播放器组件显示的音乐列表
+const initmusicList=[]
+function musicList(state = initmusicList, action) {
+  switch (action.type) {
+    case UPDATE_MUSIC:
+      return action.musicList
+    case DEL_ONEMUSIC:
+      return action.musicList
+    case DEL_ALLMUSIC:
+      return []
+    default:
+      return state
+  }
+}
+
+function flashstate(state ="", action) {
+  switch (action.type) {
+    case FLASHSTATE:
+      return action.fn
+    default:
+      return state
+  }
+}
+
+/*向外默认暴露的是合并产生的总的reducer函数
 管理的总的state的结构:
   {
     headTitle: '首页',
@@ -66,5 +88,5 @@ function songList(state = initsonglist, action) {
   }
  */
 export default combineReducers({
-  user,songList
+  user,songList,musicList,flashstate
 })

@@ -12,7 +12,6 @@ import Dirs from './dirs'
 class StoryDetail extends Component {
     render() {
         const user = this.props.user
-        // console.log('现在的',this.props)
         const content = (
             <div>
                 <Headphoto id={this.props.user.id} />

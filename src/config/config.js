@@ -7,7 +7,7 @@
 // export const BASE = '/api'
 // export const Baseurl=""
 
-//开发环境
+// 开发环境
 export const UPLOADIMGSERVER='/img/upload' 
 export const UPLOADHEADSERVER='/uploadhead'
 export const BASE = ''

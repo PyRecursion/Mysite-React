@@ -10,7 +10,11 @@ import {
   RESET_USER,
   REG_USER,
   TOP_SONGLIST,
-  SEARCH_SONGLIST
+  SEARCH_SONGLIST,
+  DEL_ONEMUSIC,
+  DEL_ALLMUSIC,
+  UPDATE_MUSIC,
+  FLASHSTATE
 } from './action-types'
 import { reqLog, reqHead, reqMusic, seachMusic, seachMusicDetail } from '../api'
 import storageUtils from "../utils/storageUtils";
@@ -18,25 +22,21 @@ import { message } from 'antd';
 import { handerTime, handersinger } from '../utils/handerSongs';
 
 
-/*
-接收用户的同步action
- */
+
+
+//-------------------------------------------------------------------------------------------------------
+//接收用户的同步action
 export const receiveUser = (user) => ({ type: RECEIVE_USER, user })
 
-/*
-显示错误信息同步action
- */
+//显示错误信息同步action
 export const showErrorMsg = (errorMsg) => ({ type: SHOW_ERROR_MSG, errorMsg })
 
 
-/*
-注册改变props
- */
+//注册改变props
 export const regUser = () => ({ type: REG_USER })
 
-/*
-退出登陆的同步action
- */
+
+//退出登陆的同步action
 export const logout = () => {
   // 删除local中的user
   storageUtils.removeUser()
@@ -44,9 +44,8 @@ export const logout = () => {
   return { type: RESET_USER }
 }
 
-/*
-登陆的异步action
- */
+
+//登陆的异步action
 export const login = (username, password) => {
   return async dispatch => {
     // 1. 执行异步ajax请求
@@ -66,9 +65,7 @@ export const login = (username, password) => {
   }
 }
 
-/*
-请求头像的action
- */
+//请求头像的action
 export const reqHeadphoto = (id) => {
   return async dispatch => {
     // 1. 执行异步ajax请求
@@ -89,11 +86,12 @@ export const reqHeadphoto = (id) => {
 }
 
 
+//-------------------------------------------------------------------------------------------------------
 //歌曲列表
 export const seachSongList = (songList) => ({ type: SEARCH_SONGLIST, songList })
 export const topSongList = (songList) => ({ type: TOP_SONGLIST, songList })   //这是一个action
 
-
+//异步获取排行榜歌曲列表
 export const reqTopList = (id) => {
   return async dispatch => {
     const result = await reqMusic(id)
@@ -121,7 +119,7 @@ export const reqTopList = (id) => {
 }
 
 
-//搜索歌曲
+//获取用户搜索歌曲列表
 export const reqSeachList = (keywords) => {
   return async dispatch => {
     const result = await seachMusic(keywords)
@@ -137,7 +135,6 @@ export const reqSeachList = (keywords) => {
         if (result.code === 200) {
           var data = []
           for (let index = 0; index < querySonglist.songs.length; index++) {
-
             const element = querySonglist.songs[index];
             const info = {
               'key': element.id,
@@ -156,3 +153,35 @@ export const reqSeachList = (keywords) => {
     }
   }
 }
+
+
+//-------------------------------------------------------------------------------------------------------
+//用户删除一个音乐
+export const delonemusic = (musicList) => ({ type: DEL_ONEMUSIC, musicList:musicList })
+
+//更新音乐
+export const updatemusic = (musicList) => ({ type: UPDATE_MUSIC, musicList:musicList })
+
+//用户删除全部音乐
+export const delAllMusic = () => ({ type: DEL_ALLMUSIC})
+
+// 删除指定音乐
+export const delOneMusic= (musicList,id) => {
+  return  dispatch=>{
+    const newMusicList = [];
+    musicList.forEach(item => {
+      if (item.id !== id) {
+        newMusicList.push(item);
+      }
+    });
+    dispatch(delonemusic(newMusicList))
+  }
+  };
+export const updateMusic= (musicList) => {
+    return  dispatch=>{
+      dispatch(updatemusic(musicList))
+    }
+    };
+
+//刷新兄弟组件状态
+export const flashState = (fn) => ({ type: FLASHSTATE,fn})

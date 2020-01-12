@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Menu, Layout, Affix } from 'antd';
 import "./index.less"
-import { reqStorys,reqStoryTypeList } from '../../api';
+import { reqStorys, reqStoryTypeList } from '../../api';
 import { Link } from 'react-router-dom'
 // import Booklist from './booklist';
 
@@ -15,18 +15,17 @@ const { Sider, Content } = Layout;
 export default class Story extends Component {
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             data: [],
-            storyTypeList:[]    
+            storyTypeList: []
         }
-      }
-    
+    }
+
 
     handleClick = e => {
         this.getStorys(e.item.props.children)
     };
-    
+
 
     componentDidMount = () => {
         this.getStorys("")
@@ -40,33 +39,27 @@ export default class Story extends Component {
             })
         }
     }
-    
-    getStoryTypeList=async () => {
+    getStoryTypeList = async () => {
         const result = await reqStoryTypeList()
         if (result.status === 0) {
-            console.log(result.data)
             this.setState({
-                
                 storyTypeList: result.data
             })
         }
     }
-
     render() {
-        const {data,storyTypeList} = this.state
+        const { data, storyTypeList } = this.state
         return (
-            
             <Layout >
                 <Affix>
-                    <Sider  style={{  minHeight: document.body.clientHeight-100  + 'px',height:"100%" }}>
+                    <Sider style={{ minHeight: document.body.clientHeight - 100 + 'px', height: "100%" }}>
                         <Menu
-                            style={{ height:"100%" }}
+                            style={{ height: "100%" }}
                             onClick={this.handleClick}
                             defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1',"sub2"]}
+                            defaultOpenKeys={['sub1', "sub2"]}
                             mode="inline"
                             theme="dark"
-
                         >
                             <SubMenu
                                 key="sub1"
@@ -76,8 +69,8 @@ export default class Story extends Component {
                                     </span>
                                 }
                             >
-                            <Menu.Item key="1">全部小说</Menu.Item>
-                            {storyTypeList.map(item=><Menu.Item key={item}>{item}</Menu.Item>)}
+                                <Menu.Item key="1">全部小说</Menu.Item>
+                                {storyTypeList.map(item => <Menu.Item key={item}>{item}</Menu.Item>)}
                             </SubMenu>
                             <SubMenu
                                 key="sub2"
@@ -122,7 +115,7 @@ export default class Story extends Component {
                     </div>
                 </Content>
             </Layout>
-            
+
 
         )
     }

@@ -55,9 +55,6 @@ export default class index extends Component {
     window.scrollTo(0,0)
     
     }
-
-  
-
     render() {
         const sources = {
             hd: {
@@ -68,7 +65,6 @@ export default class index extends Component {
             },
             
         }
-        console.log(2222,this.state.curPlay_url)
         const gridStyle = {
             width: '12.5%',
             textAlign: 'center',
@@ -122,7 +118,7 @@ export default class index extends Component {
                                 <Card.Grid style={gridStyle} >
                                     {/* <div flag={item.subject.id} onClick={this.onPlay}> */}
                                     <img className="movie-img" 
-                                        src={"/static/images/movieImg/" + item.subject.id + ".jpg"} 
+                                        src={"http://localhost:5000/static/images/movieImg/" + item.subject.id + ".jpg"} 
                                         alt={item.subject.id} 
                                         flag={item.subject.id}
                                         title={item.subject.title}
