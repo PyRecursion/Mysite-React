@@ -1,23 +1,16 @@
 import React, { Component } from 'react'
-import { Table, Tag, Icon } from 'antd';
-// import AudioPlay from './audioPlay';
+import { Table, Tag, Icon,Spin } from 'antd';
 import { handerTime, handersinger } from '../../utils/handerSongs';
 import { connect } from 'react-redux'
 import { reqTopList,updateMusic } from '../../redux/actions'
 
-
-
 class SongList extends Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      id: props.match.params.mid,
-    }
-  }
 
+  UNSAFE_componentWillReceiveProps(props){
+    this.props.songList.spinning=true
+  }
   componentDidMount() {
-    this.props.reqTopList(this.state.id)
+    this.props.reqTopList(this.props.match.params.mid)
   }
   //点击播放按钮
   clickPlayMusic = (e) => {
@@ -42,35 +35,18 @@ class SongList extends Component {
       newmusicList.push(song)
     }
     this.props.updateMusic(newmusicList)
-    this.props.flashstate()
-    
+    this.props.flashstate()  
   }
 
-  // // 删除指定音乐
-  // onDeleteMusic = id => {
-  //   const { musicList } = this.state;
-  //   const newMusicList = [];
-  //   musicList.forEach(item => {
-  //     if (item.id !== id) {
-  //       newMusicList.push(item);
-  //     }
-  //   });
-  //   this.setState({ musicList: newMusicList });
-  // };
-  // // 删除全部音乐
-  // onDeleteAllMusic = () => {
-  //   this.setState({ musicList: [] });
-  // };
-
   render() {
-    const data = this.props.songList
+    const {data,spinning} = this.props.songList
     const columns = [
       {
         width: '50px',
         title: '',
         dataIndex: 'id',
         key: 'id',
-        render: id => <Tag color="red">{id}</Tag>,
+      render: id => id>=4?<Tag>{id}</Tag>:<Tag color="red">{id}</Tag>,
       },
       {
         width: '250px',
@@ -108,22 +84,16 @@ class SongList extends Component {
         render: id => <a href={`https://music.163.com/song/media/outer/url?id=${id}`} target='_blank' rel="noopener noreferrer">下载地址</a>
       },
     ]
-    // const { musicList } = this.state
+
     return (
       <div style={{ width: "1000px" }} >
-
-        <Table
-          columns={columns}
-          dataSource={data}
-          pagination={false}
-        />
-        {/* <div>
-          <AudioPlay
-            musicList={musicList}
-            onDeleteMusic={this.onDeleteMusic}
-            onDeleteAllMusic={this.onDeleteAllMusic}
+        <Spin spinning={spinning} tip="拼命加载中">
+          <Table
+            columns={columns}
+            dataSource={data}
+            pagination={false}
           />
-        </div> */}
+        </ Spin>
       </div>
     )
   }

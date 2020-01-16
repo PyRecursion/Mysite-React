@@ -7,7 +7,7 @@ import Music from '../music';
 import Story from '../story';
 import Photo from '../photo';
 import Movie from '../movie';
-import Blog from '../blog';
+import UserInfo from '../userInfo';
 import Home from './home';
 
 import LinkButton from '../../components/link-button';
@@ -64,7 +64,7 @@ class Index extends Component {
             <Route path="/story" component={Story} />
             <Route path="/photo/:typeId" component={Photo} />
             <Route path="/movie" component={Movie} />
-            <Route path="/blog" component={Blog} />
+            <Route path="/userInfo" component={UserInfo} />
             <Route path="/postdetail/:id" component={PostDetail} />
             <Route path="/" component={Home} />
           </Switch>

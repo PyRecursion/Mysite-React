@@ -23,7 +23,9 @@ class SeachTool extends React.Component {
 
     onChange = async value => {
         this.setState({ value })
-        if (value) {
+        //去空格
+        var newValue =value.replace(/(\s*$)/g,"");
+        if (newValue) {
             const result = await seachSuggestMusic(value)
             // var SuggestMusics=[]
             if (result.code === 200) {
@@ -41,7 +43,7 @@ class SeachTool extends React.Component {
     onSelect = value => {
         // console.log('onSelect', value);
         if (value) {
-             this.props.reqSeachList(value)
+             this.props.reqSeachList(value)  
         }
     }
 
@@ -82,6 +84,6 @@ class SeachTool extends React.Component {
 }
 
 export default connect(
-    state => ({songList:state.songList}),
+    state => ({}),
     {reqSeachList}
 )(SeachTool)

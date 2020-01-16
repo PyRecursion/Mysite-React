@@ -48,9 +48,9 @@ const initsonglist=[]
 function songList(state = initsonglist, action) {
   switch (action.type) {
     case TOP_SONGLIST:
-      return action.songList
+      return {data:action.songList,spinning:false}
     case SEARCH_SONGLIST:
-      return action.songList
+      return {data:action.songList,spinning:false}
     default:
       return state
   }

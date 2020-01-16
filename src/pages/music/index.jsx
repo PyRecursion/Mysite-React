@@ -9,31 +9,14 @@ import { reqTopList } from '../../redux/actions'
 
 const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
-
 class Music extends Component {
   constructor(props) {
     super(props);
-    console.log(222,props)
     this.state = {
-      currentPage: this.props.match.params.id,
+      currentPage: props.match.params.mid,
       openKeys: "sub1",
     };
   }
-  // 删除指定音乐
-  onDeleteMusic = id => {
-    const { musicList } = this.state;
-    const newMusicList = [];
-    musicList.forEach(item => {
-      if (item.id !== id) {
-        newMusicList.push(item);
-      }
-    });
-    this.setState({ musicList: newMusicList });
-  };
-  // 删除全部音乐
-  onDeleteAllMusic = () => {
-    this.setState({ musicList: [] });
-  };
 
   handleClick = e => {
     this.props.reqTopList(e.key)
@@ -42,13 +25,13 @@ class Music extends Component {
     })
   };
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     this.openKey(this.state.currentPage)
   }
   //自动打开折叠栏 
   openKey = (key) => {
     // const sub1=[3,0,2,1]
-    const sub2 = ['24', '25', '6', '8', '2', '6']
+    const sub2 = ['24', '25', '6', '8', '26']
     const sub3 = ['10']
     for (let index = 0; index < sub2.length; index++) {
       const element = sub2[index];
@@ -58,7 +41,7 @@ class Music extends Component {
         })
       }
     }
-    
+
     for (let index = 0; index < sub3.length; index++) {
       const element = sub3[index];
       if (key === element) {

@@ -10,8 +10,9 @@ const { SubMenu } = Menu;
 class Navigate extends Component {
   constructor(props) {
     super(props);
+    console.log(11,props.location.pathname.match(/[a-z|A-Z]+/))
     this.state = {
-      current: props.location.pathname.match(/[a-z]+/) ? props.location.pathname.match(/[a-z]+/)[0] : "",
+      current: props.location.pathname.match(/[a-z|A-Z]+/) ? props.location.pathname.match(/[a-z|A-Z]+/)[0] : "",
       ImageList:[]
     };
   }
@@ -64,8 +65,8 @@ class Navigate extends Component {
         <Menu.Item className='menu_item' key='movie' >
           <Link to='/movie'>电影</Link>
         </Menu.Item>
-        <Menu.Item className='menu_item' key='blog'>
-          <Link to='/blog'>站长博客</Link>
+        <Menu.Item className='menu_item' key='userInfo'>
+          <Link to='/userInfo'>个人主页</Link>
         </Menu.Item>
       </Menu>
     )

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./audioPlay.css";
 import { connect } from 'react-redux'
-import { delOneMusic, delAllMusic ,flashState} from '../../redux/actions'
+import { delOneMusic, delAllMusic, flashState } from '../../redux/actions'
 
 /**
  * 前端音乐播放器
@@ -12,8 +12,7 @@ import { delOneMusic, delAllMusic ,flashState} from '../../redux/actions'
 class AudioPlay extends Component {
   constructor(props) {
     super(props)
-    console.log(props)
-    this.props.flashState(this.fn)
+    this.props.flashState(this.addSongFresh)
     this.state = {
       // 是否暂停状态
       isPause: false,
@@ -39,21 +38,19 @@ class AudioPlay extends Component {
     };
   }
 
-    fn=()=>{
-      console.log("刷新")
-      console.log(this.props.musicList)
-      const musicList=this.props.musicList
-      var currentMusic={}
-      console.log(111,musicList.length)
-      if (!(musicList.length===0)){
-        currentMusic=musicList[musicList.length-1]
-        this.setState({
-          currentMusic:currentMusic,
-        })
-      }
-      
+  //添加歌曲时的回调函数
+   addSongFresh= () => {
+    const musicList = this.props.musicList
+    var currentMusic = {}
+    if (!(musicList.length === 0)) {
+      currentMusic = musicList[musicList.length - 1]
+      this.setState({
+        currentMusic: currentMusic,
+      })
     }
-  
+
+  }
+
 
 
   //  UNSAFE_componentWillReceiveProps(nextprops){
@@ -240,8 +237,12 @@ class AudioPlay extends Component {
       this.setState({ currentTime: this.getTime(currentTime) });
     }
     // 设置当前音乐进度 拖拽不需要及时计算播放进度，会导致音乐像快进一样的效果，体验很差，点击进度条是需要及时设置当前播放进度的
-    if (key === "dragEnd" || key === "click") {
-      this.audio.currentTime = currentTime;
+    if (this.props.musicList.length === 0) {
+      return
+    } else {
+      if (key === "dragEnd" || key === "click") {
+        this.audio.currentTime = currentTime;
+      }
     }
   };
 
@@ -452,7 +453,7 @@ class AudioPlay extends Component {
 
   // 设置音乐播放模式
   onPlayModeChange = () => {
-    
+
     const { playMode } = this.state;
     if (playMode === 3) {
       this.setState({ playMode: 1 });
@@ -510,7 +511,7 @@ class AudioPlay extends Component {
   onDeleteMusic = (e, item) => {
     e.stopPropagation();
     const { musicList } = this.props;
-    this.props.delOneMusic(musicList,item.id)
+    this.props.delOneMusic(musicList, item.id)
     this.setState({
       // musicList:this.props.musicList
     })
@@ -793,5 +794,5 @@ class AudioPlay extends Component {
 
 export default connect(
   state => ({ musicList: state.musicList }),
-  {delOneMusic, delAllMusic,flashState}
+  { delOneMusic, delAllMusic, flashState }
 )(AudioPlay)

@@ -7,7 +7,13 @@ import { reqMovies } from '../../api';
 // import MovieInfo from "./movieInfo"
 
 
-
+const gridStyle = {
+    width: '12.5%',
+    textAlign: 'center',
+    height: '200px',
+    padding: 10,
+    overflow: 'hidden'
+};
 
 export default class index extends Component {
 
@@ -52,8 +58,7 @@ export default class index extends Component {
         curPlay_url:'/static/videos/'+curPlay_url+".mp4",
         curMovieInfo:curMovieInfo
     })
-    window.scrollTo(0,0)
-    
+    window.scrollTo(0,0)  
     }
     render() {
         const sources = {
@@ -65,13 +70,7 @@ export default class index extends Component {
             },
             
         }
-        const gridStyle = {
-            width: '12.5%',
-            textAlign: 'center',
-            height: '200px',
-            padding: 10,
-            overflow: 'hidden'
-        };
+        
         const title=title=><h2 style={{ width: 250 }}>{title}</h2>
         const content = (info, introduce) => {
             return (
